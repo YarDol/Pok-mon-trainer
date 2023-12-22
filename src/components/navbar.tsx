@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-interface NavbarProps {
-  title: string;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ title }) => {
+const Navbar: React.FC = () => {
   return (
     <div className='navbar'>
-      <span className='navbar__title'>{title}</span>
+      <Link to='/' className='navbar__title'>
+        Home
+      </Link>
+      <Link to='/team' className='navbar__title'>
+        Team
+      </Link>
     </div>
   );
 };

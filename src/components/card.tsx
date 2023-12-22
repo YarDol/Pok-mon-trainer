@@ -29,9 +29,8 @@ interface CardProps {
     }>;
     sprites: {
       front_default: string;
-      // Add other sprite properties if needed
     };
-    order: number; // Add the 'order' property here
+    order: number; 
   };
 }
 

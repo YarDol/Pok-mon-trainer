@@ -1,5 +1,4 @@
 import React from 'react';
-// import { searchIcon } from '../utils/icons';
 
 interface ModalProps {
   pokemon: {
@@ -20,6 +19,25 @@ const Modal: React.FC<ModalProps> = ({ pokemon, onHandleModal }) => {
     onHandleModal();
   };
 
+  const handleSavePokemon = () => {
+    const savedPokemons = JSON.parse(localStorage.getItem('savedPokemons') || '[]');
+
+    // Перевірка наявності покемона у списку збережених
+    const isPokemonAlreadySaved = savedPokemons.some((savedPokemon: any) => savedPokemon.name === pokemon.name);
+
+    if (!isPokemonAlreadySaved) {
+      if (savedPokemons.length < 4) {
+        const newSavedPokemons = [...savedPokemons, pokemon];
+        localStorage.setItem('savedPokemons', JSON.stringify(newSavedPokemons));
+        alert(`${pokemon.name} saved to your team!`);
+      } else {
+        alert('You have reached the limit of 4 saved pokemons in your team.');
+      }
+    } else {
+      alert(`${pokemon.name} is already saved in your team!`);
+    }
+  };
+
   const colors = ['#FC6B6E', '#2196F3', '#094BE8', '#2196F3', '#3ED1E0', '#CF9B48'];
 
   return (
@@ -31,7 +49,6 @@ const Modal: React.FC<ModalProps> = ({ pokemon, onHandleModal }) => {
         <div className="modal__content-features" style={{ backgroundColor: `var(--bg-poke-color-dark-${pokemon.types[0].type.name})` }}>
           <div className="modal__content-featuresRight">
             <span className='modal__content-featuresHabitat'>
-              {/* <img className='modal__content-featuresImage' src={searchIcon(pokemon.types[0].type.name)} alt="" /> */}
             </span>
             {pokemon['past_types'].length > 0 && (
               <span className='modal__content-featuresGeneration'>{pokemon['past_types'][0].generation.name}</span>
@@ -73,6 +90,9 @@ const Modal: React.FC<ModalProps> = ({ pokemon, onHandleModal }) => {
           </div>
         </div>
       </div>
+      <button className='modal__save' onClick={handleSavePokemon}>
+        Save to Team
+      </button>
     </div>
   );
 };
