@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import Grid from '../layout/grid';
 import Container from '../layout/container';
+import WelcomeModal from '../components/welcomeModal';
 
 const Home: React.FC = () => {
   const [pokemons, setPokemons] = useState<any[]>([]);
@@ -11,6 +12,17 @@ const Home: React.FC = () => {
   const [notFound, setNotFound] = useState<boolean>(false);
   const [search, setSearch] = useState<any[]>([]);
   const [searching, setSearching] = useState<boolean>(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const hasShownWelcome = localStorage.getItem('hasShownWelcome');
+    if (hasShownWelcome) {
+      setShowWelcomeModal(false);
+    } else {
+      setShowWelcomeModal(true);
+    }
+  }, []);
 
   const handleSearch = async (textSearch: string | null) => {
     if (!textSearch) {
@@ -35,6 +47,13 @@ const Home: React.FC = () => {
     }
 
     setSearching(false);
+  };
+
+  const handleWelcomeModalSubmit = (firstName: string, lastName: string) => {
+    const fullName = `${firstName} ${lastName}`;
+    setUserName(fullName);
+    setShowWelcomeModal(false);
+    localStorage.setItem('hasShownWelcome', 'true');
   };
 
   const showPokemons = async (limit = 20, offset = 0) => {
@@ -75,6 +94,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+    {showWelcomeModal && <WelcomeModal onSubmitted={handleWelcomeModalSubmit} />}
       <Container>
         <Navbar />
         <Search onHandleSearch={handleSearch} />

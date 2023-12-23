@@ -47,22 +47,20 @@ const Card: React.FC<CardProps> = ({ pokemon }) => {
   return (
     <>
       <div
-        className='card'
+        className='flex items-end justify-around rounded-2xl relative py-5 px-0 bg-white bg-opacity-30'
         onClick={handleModal}
-        style={{ backgroundColor: `var(--bg-poke-color-light-${pokemon.types[0].type.name})` }}
       >
-        <div className='card__title'>
-          <span className='card__title-text'>{`#${pokemon.order}`}</span>
+        <div className='flex items-center absolute top-6 left-5 h-15'>
+          <span className='ml-10 font-medium'>{`#${pokemon.order}`}</span>
         </div>
         <div
-          className='card__badge'
-          style={{ backgroundColor: `var(--bg-poke-color-dark-${pokemon.types[0].type.name})` }}
+          className='absolute top-0 right-0 p-1 px-2 rounded-lg text-xs text-center text-black font-semibold'
         >
-          <span className='card__badge-text'>{pokemon.types[0].type.name}</span>
+          <span className='inline-block text-center'>{pokemon.types[0].type.name}</span>
         </div>
-        <h3 className='card__name'>{pokemon.name}</h3>
+        <h3 className='font-semibold'>{pokemon.name}</h3>
         <img
-          className='card__image'
+          className='block z-2 w-40 h-full'
           width={120}
           height={120}
           src={pokemon.sprites['front_default']}
