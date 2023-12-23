@@ -1,4 +1,5 @@
 import React from 'react';
+import Select, { SelectProps } from '../stories/Select';
 
 const TeamModal: React.FC<{ savedPokemons: any[]; firstName: string; lastName: string; onClose: () => void }> = ({
   savedPokemons,
@@ -9,6 +10,19 @@ const TeamModal: React.FC<{ savedPokemons: any[]; firstName: string; lastName: s
   const handleConfirmation = () => {
     alert('Best of luck on your journey! And may the odds be ever in your favor.');
     onClose();
+  };
+
+  const selectOptions = savedPokemons.slice(0, 4).map((pokemon: any, index: number) => ({
+    value: pokemon.name,
+    label: pokemon.name,
+  }));
+
+  const selectProps: SelectProps = {
+    id: 'select-team-modal',
+    label: 'Pokemons:',
+    assistiveText: 'Select a Pokemon',
+    options: selectOptions,
+    ariaDescribedBy: 'select-team-modal-at',
   };
 
   return (
@@ -26,14 +40,7 @@ const TeamModal: React.FC<{ savedPokemons: any[]; firstName: string; lastName: s
             {firstName} {lastName} Team
           </p>
           <hr />
-          <p>Pokemons:</p>
-          <select className="border border-gray-300 rounded-md p-2">
-            {savedPokemons.slice(0, 4).map((pokemon: any, index: number) => (
-              <option key={index} value={pokemon.name}>
-                {pokemon.name}
-              </option>
-            ))}
-          </select>
+          <Select {...selectProps} />
         </div>
         <button
           onClick={handleConfirmation}
