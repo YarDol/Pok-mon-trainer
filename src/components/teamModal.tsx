@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { SelectProps } from '../stories/Select';
+import { Select, SelectProps } from '../stories/Select';
 
 const TeamModal: React.FC<{ savedPokemons: any[]; firstName: string; lastName: string; onClose: () => void }> = ({
   savedPokemons,

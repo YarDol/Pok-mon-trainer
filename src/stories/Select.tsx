@@ -23,7 +23,7 @@ export const Select = ({
       <select
         id={id}
         aria-describedby={ariaDescribedBy}
-        className="border border-blue-900 rounded-md p-2 w-full"
+        className="border border-black rounded-md p-2 w-full"
       >
         {options.map((option, index) => (
           <option key={index} value={option.value}>
